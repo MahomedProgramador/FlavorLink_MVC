@@ -19,7 +19,7 @@ namespace Services
 
         public Recipe Add(Recipe recipe)
 		{
-			throw new NotImplementedException();
+			return _recipeRepository.Add(recipe);
 		}
 
 		public void Delete(int id)
@@ -39,7 +39,7 @@ namespace Services
 
 		public Recipe GetById(int id)
 		{
-			throw new NotImplementedException();
+			return _recipeRepository.GetById(id);
 		}
 
 		public Recipe Update(Recipe recipe)

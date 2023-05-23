@@ -18,6 +18,7 @@ namespace IOC
 		{
 			serviceCollection.AddScoped<IRecipeRepository, RecipeRepository>();
 			serviceCollection.AddScoped<IRecipeService, RecipeService>();
+			serviceCollection.AddScoped<IIngredientRepository, IngredientRepository>();
 		}
 	}
 }

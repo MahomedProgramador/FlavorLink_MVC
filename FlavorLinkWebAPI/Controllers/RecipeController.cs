@@ -9,12 +9,11 @@ using System.Data.SqlClient;
 namespace FlavorLinkWebAPI.Controllers
 {
 
-	//POR ISTO NO RECIPEREPOSITORY
 	[Route("api/[controller]")]
 	[ApiController]
 	public class RecipeController : ControllerBase
 	{
-		//IRecipeS
+
 		private readonly IRecipeService _recipeService;
 
 		public RecipeController(IRecipeService recipeService)
@@ -28,11 +27,23 @@ namespace FlavorLinkWebAPI.Controllers
 			return _recipeService.GetAll();
 		}
 
+		[HttpGet("{id}")]
+		public Recipe GetRecipe(int id)
+		{
+			return _recipeService.GetById(id);
+		}
+
 		[HttpDelete("{id}")]
 		
 		public void Delete(int id) 
 		{
 			_recipeService.Delete(id);
+		}
+
+		[HttpPost("")]
+		public Recipe CreateRecipe(Recipe recipe)
+		{
+			return _recipeService.Add(recipe);
 		}
 	}
 }
