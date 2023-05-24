@@ -1,11 +1,7 @@
 ﻿using Domain.Models;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DataMsSql
 {
@@ -33,17 +29,65 @@ namespace DataMsSql
 
 		public void Delete(int id)
 		{
-			throw new NotImplementedException();
+			using SqlConnection conn = new SqlConnection(_cs);
+
+			conn.Open();
+
+			string query = $"DELETE FROM {_tableName} WHERE id = {id}";
+			using SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = query;
+
+			cmd.ExecuteNonQuery();
 		}
 
 		public List<Ingredient> GetAll()
 		{
-			throw new NotImplementedException();
+			var list = new List<Ingredient>();
+
+			using SqlConnection conn = new SqlConnection(_cs);
+
+			conn.Open();
+
+			string query = $"SELECT * FROM {_tableName}";
+			using SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = query;
+
+			SqlDataReader dr = cmd.ExecuteReader();
+
+			while (dr.Read())
+			{
+				Ingredient entity = new Ingredient();
+				entity.Id = Convert.ToInt32(dr["id"]);
+				entity.Name = Convert.ToString(dr["name"]);
+				entity.Measurement = Convert.ToString(dr["measurement"]);
+				
+				list.Add(entity);
+			}
+			return list;
 		}
 
 		public Ingredient GetById(int id)
 		{
-			throw new NotImplementedException();
+			Ingredient entity = new Ingredient();
+
+			string query = $"SELECT * from {_tableName} WHERE id = {id}";
+
+			using SqlConnection conn = new SqlConnection(_cs);
+
+			conn.Open();
+
+			using SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = query;
+
+			SqlDataReader dr = cmd.ExecuteReader();
+
+			while (dr.Read())
+			{
+				entity.Id = Convert.ToInt32(dr["id"]);
+				entity.Name = Convert.ToString(dr["name"]);
+				entity.Measurement = Convert.ToString(dr["measurement"]);				
+			}
+			return entity;
 		}
 
 		public void Update(Ingredient ingredient)

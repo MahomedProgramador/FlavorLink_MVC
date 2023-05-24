@@ -21,7 +21,6 @@ namespace DataMsSql
 
         public Recipe Add(Recipe entity)
 		{			
-
 			string query = $"INSERT INTO {_tableName} (name, prep_method, difficulty, rating, image_path) " +
 						   $"VALUES ('{entity.Name}', '{entity.PrepMethod}', {entity.Difficulty}, {entity.Rating}, '{entity.ImagePath}') " +
 						   $"SELECT SCOPE_IDENTITY() as 'SCOPE_IDENTITY'";
@@ -38,11 +37,10 @@ namespace DataMsSql
 
 			foreach (Ingredient ingredient in entity.Ingredients)
 			{
-				ingredient.Id = _ingredientRepository.Add(ingredient);
+				ingredient.Id = _ingredientRepository.Add(ingredient);								
 
 				CreateRelationship(entity.Id, ingredient.Id);
 			}
-
 			return entity;
 		}
 
@@ -100,10 +98,10 @@ namespace DataMsSql
 				entity.Name = Convert.ToString(dr["name"]);
 				entity.Ingredients= new List<Ingredient>();
 
-				Ingredient i = new Ingredient();
-				i.Id = Convert.ToInt32(dr["ingredients"]);
+				//Ingredient i = new Ingredient();
+				//i.Id = Convert.ToInt32(dr["ingredients"]);
+				//entity.Ingredients.Add(i);
 
-				entity.Ingredients.Add(i);
 				entity.PrepMethod = Convert.ToString(dr["prep_method"]);
 				entity.Difficulty = Convert.ToInt32(dr["difficulty"]);
 				entity.Rating = Convert.ToInt32(dr["rating"]);
@@ -135,9 +133,9 @@ namespace DataMsSql
 				entity.Name = Convert.ToString(dr["name"]);
 				entity.Ingredients = new List<Ingredient>();
 
-				Ingredient i = new Ingredient();
-				i.Id = Convert.ToInt32(dr["ingredients"]);
-				entity.Ingredients.Add(i);
+				//Ingredient i = new Ingredient();
+				//i.Id = Convert.ToInt32(dr["ingredients"]);
+				//entity.Ingredients.Add(i);
 
 				entity.PrepMethod = Convert.ToString(dr["prep_method"]);
 				entity.Difficulty = Convert.ToInt32(dr["difficulty"]);
