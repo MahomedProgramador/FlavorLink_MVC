@@ -1,9 +1,6 @@
-﻿
-
-using Domain.Models;
+﻿using Domain.Models;
 using Services.Contracts;
 using System.Data.SqlClient;
-using System.Transactions;
 
 namespace DataMsSql
 {
@@ -43,7 +40,6 @@ namespace DataMsSql
 			}
 			return entity;
 		}
-
 		private void CreateRelationship(int recipeId, int ingredientId)
 		{
 			string query = $"INSERT INTO recipes_ingredients (recipe_id, ingredient_id) " +
@@ -58,7 +54,6 @@ namespace DataMsSql
 
 			cmd.ExecuteNonQuery();			
 		}
-
 		public void Delete(int id)
 		{
 			using SqlConnection conn = new SqlConnection(_cs);
@@ -71,12 +66,10 @@ namespace DataMsSql
 
 			cmd.ExecuteNonQuery();
 		}
-
 		public void Delete(Recipe entity)
 		{
 			Delete(entity.Id);
 		}
-
 		public List<Recipe> GetAll()
 		{
 			var list = new List<Recipe>();
@@ -98,9 +91,11 @@ namespace DataMsSql
 				entity.Name = Convert.ToString(dr["name"]);
 				entity.Ingredients= new List<Ingredient>();
 
+				//A tabela já não tem o campo do ingredient, está a ir para outro lado
 				//Ingredient i = new Ingredient();
 				//i.Id = Convert.ToInt32(dr["ingredients"]);
 				//entity.Ingredients.Add(i);
+				
 
 				entity.PrepMethod = Convert.ToString(dr["prep_method"]);
 				entity.Difficulty = Convert.ToInt32(dr["difficulty"]);
@@ -111,7 +106,6 @@ namespace DataMsSql
 			}
 			return list;
 		}
-
 		public Recipe GetById(int id)
 		{
 			Recipe entity = new Recipe();
@@ -132,11 +126,6 @@ namespace DataMsSql
 				entity.Id = Convert.ToInt32(dr["id"]);
 				entity.Name = Convert.ToString(dr["name"]);
 				entity.Ingredients = new List<Ingredient>();
-
-				//Ingredient i = new Ingredient();
-				//i.Id = Convert.ToInt32(dr["ingredients"]);
-				//entity.Ingredients.Add(i);
-
 				entity.PrepMethod = Convert.ToString(dr["prep_method"]);
 				entity.Difficulty = Convert.ToInt32(dr["difficulty"]);
 				entity.Rating = Convert.ToInt32(dr["rating"]);
@@ -144,10 +133,41 @@ namespace DataMsSql
 			}
 			return entity;
 		}
-
 		public Recipe Update(Recipe entity)
 		{
 			throw new NotImplementedException();
+		}
+
+		public IEnumerable<Recipe> Search(string searchTerm)
+		{
+			var list = new List<Recipe>();
+
+			using SqlConnection conn = new SqlConnection(_cs);
+
+			conn.Open();
+
+			string query = $"SELECT * FROM {_tableName} Where Upper(Name) like '%{searchTerm}%' or name like '%{searchTerm}%'";
+			using SqlCommand cmd = conn.CreateCommand();
+			cmd.CommandText = query;
+
+			SqlDataReader dr = cmd.ExecuteReader();
+
+			while (dr.Read())
+			{
+				Recipe entity = new Recipe();
+				entity.Id = Convert.ToInt32(dr["id"]);
+				entity.Name = Convert.ToString(dr["name"]);
+
+				entity.Ingredients = new List<Ingredient>();
+
+				entity.PrepMethod = Convert.ToString(dr["prep_method"]);
+				entity.Difficulty = Convert.ToInt32(dr["difficulty"]);
+				entity.Rating = Convert.ToInt32(dr["rating"]);
+				entity.ImagePath = Convert.ToString(dr["image_path"]);
+
+				list.Add(entity);
+			}
+			return list;			
 		}
 	}
 }

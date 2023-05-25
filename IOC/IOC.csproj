@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DataMsSql\DataMsSql.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\InMemory\InMemory.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 

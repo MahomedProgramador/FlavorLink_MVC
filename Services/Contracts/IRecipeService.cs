@@ -1,9 +1,4 @@
 ﻿using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Contracts
 {
@@ -15,5 +10,7 @@ namespace Services.Contracts
 		Recipe Update(Recipe recipe);
 		void Delete(int id);
 		void Delete(Recipe recipe);
+
+		IEnumerable<Recipe> Search(string searchTerm);
 	}
 }

@@ -1,10 +1,5 @@
 ﻿using Domain.Models;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -40,6 +35,11 @@ namespace Services
 		public Recipe GetById(int id)
 		{
 			return _recipeRepository.GetById(id);
+		}
+
+		public IEnumerable<Recipe> Search(string searchTerm)
+		{
+			return _recipeRepository.Search(searchTerm);
 		}
 
 		public Recipe Update(Recipe recipe)
