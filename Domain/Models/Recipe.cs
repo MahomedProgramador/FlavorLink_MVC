@@ -7,8 +7,8 @@ namespace Domain.Models
 		public string? Name { get; set; }
 		public List<Ingredient>? Ingredients { get; set; }
 		public string? PrepMethod { get; set; }
-		public int Difficulty { get; set; }
-		public int Rating { get; set; }
+		public int? Difficulty { get; set; }
+		public int? Rating { get; set; }
 		public string? ImagePath { get; set; }
 
 		public override bool Equals(object? obj)

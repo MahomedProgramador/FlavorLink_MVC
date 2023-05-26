@@ -16,7 +16,9 @@
 <div class="card-group">
 	@foreach (var recipe in Model.Recipes)
 	{
-		var photoPath = "~/images/" + (recipe.ImagePath ?? "no-image.jpg");	
+		var photoPath = "~/images/" + (recipe.ImagePath ?? "no-image.jpg");
+			
+		<!--var photoPath = "~/images/" + (recipe.ImagePath != null ? recipe.ImagePath : "no-image.jpg");-->
 
 		<div class="m-3" style="min-width: 18rem; max-width: 30.5%;">
 			<div class="card-header">
@@ -27,6 +29,8 @@
 
 			<div class="card-footer">
 				<a asp-page="/Recipes/Details" asp-route-ID="@recipe.Id" class="btn btn-primary m-1">View</a>
+				<a asp-page="/Recipes/Edit" asp-route-ID="@recipe.Id" class="btn btn-primary m-1">Edit</a>
+				<a asp-page="/Recipes/Delete" asp-route-ID="@recipe.Id" class="btn btn-primary m-1">Delete</a>
 			</div>
 
 		</div>

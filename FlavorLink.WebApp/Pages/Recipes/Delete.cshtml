@@ -1,0 +1,34 @@
+﻿@page "{id}"
+@model FlavorLink.WebApp.Pages.Recipes.DeleteModel
+@{
+	ViewData["Title"] = "Delete";
+	var photoPath = "~/images/" + (Model.Recipe.ImagePath ?? "noImage.jpg");
+}
+
+
+<h1>Delete Confirmation</h1>
+<div class ="alert alert-danger">
+	<h5>Are you sure you want to delete employee - @Model.Recipe.Name</h5>
+	<form method="post">
+		<button type="submit" class="btn btn-danger">Yes</button>
+		<a class="btn btn-primary" asp-page="/Recipes/Index">No</a>
+	</form>
+</div>
+
+<div class="m-3" style="min-width: 18rem; max-width:30.5%;">
+<div class="card-header">
+	<h3>@Model.Recipe.Name</h3>
+</div>
+
+	<img class="card-img-top imageThumbnail" src="@photoPath"
+		 asp-append-version="true" />
+
+	<div class="card-footer">
+		<a asp-page="/Employees/Details" asp-route-ID="@Model.Recipe.Id" class="btn btn-primary m-1">View</a>
+
+		<a asp-page="/Employees/Edit" asp-route-ID="@Model.Recipe.Id" class="btn btn-primary m-1">Edit</a>
+
+		<a asp-page="/Employees/Delete" asp-route-ID="@Model.Recipe.Id" class="btn btn-danger m-1">Delete</a>
+	</div>
+
+</div>

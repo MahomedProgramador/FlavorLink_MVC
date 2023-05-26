@@ -17,8 +17,7 @@ namespace FlavorLink.WebApp.Pages.Recipes
         
         public void OnGet()
         {
-            Recipes = _recipeService.GetAll();
-			
+            Recipes = _recipeService.GetAll();	
 
 		}
     }

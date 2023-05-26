@@ -94,12 +94,23 @@ namespace DataMsSql
 				//A tabela já não tem o campo do ingredient, está a ir para outro lado
 				//Ingredient i = new Ingredient();
 				//i.Id = Convert.ToInt32(dr["ingredients"]);
-				//entity.Ingredients.Add(i);
-				
+				//entity.Ingredients.Add(i);		
 
-				entity.PrepMethod = Convert.ToString(dr["prep_method"]);
-				entity.Difficulty = Convert.ToInt32(dr["difficulty"]);
-				entity.Rating = Convert.ToInt32(dr["rating"]);
+
+				//entity.Difficulty = Convert.ToInt32(dr["difficulty"]);
+				//entity.Rating = Convert.ToInt32(dr["rating"]);
+
+
+				if (!Convert.IsDBNull(dr["difficulty"]))
+					entity.Difficulty = Convert.ToInt32(dr["difficulty"]);
+				else
+					entity.Difficulty = null; // Nullable int
+
+				if (!Convert.IsDBNull(dr["rating"]))
+					entity.Rating = Convert.ToInt32(dr["rating"]);
+				else
+					entity.Rating = null; // Nullable int
+
 				entity.ImagePath = Convert.ToString(dr["image_path"]);
 				
 				list.Add(entity);
