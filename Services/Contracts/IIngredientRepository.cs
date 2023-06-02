@@ -10,7 +10,7 @@ namespace Services.Contracts
 	public interface IIngredientRepository
 	{
 
-		//fazer ingredientservice tb
+		
 		List<Ingredient> GetAll();
 		Ingredient GetById(int id);
 		int Add(Ingredient ingredient);

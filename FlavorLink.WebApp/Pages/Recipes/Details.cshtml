@@ -1,4 +1,4 @@
-﻿@page "/recipes/view/{id}"
+﻿@page "/recipes/{id}"
 @model FlavorLink.WebApp.Pages.Recipes.DetailsModel
 @{
 	ViewData["Title"] = "Details";
@@ -23,9 +23,17 @@
 
 			<img class="card-img-top" src="@photoPath" asp-append-version="true" />
 
-			<h3>Recipe Id: @Model.Recipe.Id</h3>
-			<h6>Recipe Ratig: @Model.Recipe.Rating</h6>
+			<h3>Ingredients</h3>
+			<p>The ingredients</p>
+
+			<h3>Measurements</h3>
+			<p>The measures</p>
+
 			<p3>Preparation Method: @Model.Recipe.PrepMethod</p3>
+						
+			<h6>Recipe Rating: @Model.Recipe.Rating</h6>
+			
+			
 
 		</div>
 

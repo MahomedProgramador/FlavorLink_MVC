@@ -81,13 +81,14 @@ namespace DataMsSql
 
 			SqlDataReader dr = cmd.ExecuteReader();
 
-			while (dr.Read())
+			if (dr.Read())
 			{
 				entity.Id = Convert.ToInt32(dr["id"]);
 				entity.Name = Convert.ToString(dr["name"]);
 				entity.Measurement = Convert.ToString(dr["measurement"]);				
 			}
-			return entity;
+
+			throw new Exception();
 		}
 
 		public void Update(Ingredient ingredient)
