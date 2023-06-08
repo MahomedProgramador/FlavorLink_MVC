@@ -35,7 +35,7 @@ namespace DataMsSql
 
 			foreach (Ingredient ingredient in entity.Ingredients)
 			{
-				ingredient.Id = _ingredientRepository.Add(ingredient);								
+				ingredient.Id = _ingredientRepository.Add(ingredient);
 
 				CreateRelationship(entity.Id, ingredient.Id);
 			}
@@ -182,7 +182,7 @@ namespace DataMsSql
 				entity.ImagePath = Convert.ToString(dr["image_path"]);				
 				return entity;
 			}
-			throw new KeyNotFoundException($"Recipe Id {id} Not Found"); //nao queria mandar a pagina abaixo. 
+			throw new KeyNotFoundException($"Recipe Id {id} Not Found"); //nao queria mandar a pagina abaixo. tenho de fazer o trycatchg
 		}
 		public Recipe Update(Recipe entity)
 		{

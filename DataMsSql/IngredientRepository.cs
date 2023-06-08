@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Services.Contracts;
+using System.ComponentModel;
 using System.Data.SqlClient;
 
 
@@ -13,7 +14,7 @@ namespace DataMsSql
 
 		public int Add(Ingredient ingredient)
 		{
-			string query = $"INSERT INTO {_tableName}(name, measurement) " +
+			string query = $"INSERT INTO {_tableName} (name, measurement) " +
 						   $"VALUES ('{ingredient.Name}', '{ingredient.Measurement}') " +
 						   $"SELECT SCOPE_IDENTITY() as 'SCOPE_IDENTITY'";
 
@@ -24,7 +25,8 @@ namespace DataMsSql
 			using SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = query;
 
-			return Convert.ToInt32(cmd.ExecuteScalar());				
+
+			return ingredient.Id;
 		}
 
 		public void Delete(int id)
@@ -39,6 +41,7 @@ namespace DataMsSql
 
 			cmd.ExecuteNonQuery();
 		}
+	
 
 		public List<Ingredient> GetAll()
 		{
@@ -60,7 +63,7 @@ namespace DataMsSql
 				entity.Id = Convert.ToInt32(dr["id"]);
 				entity.Name = Convert.ToString(dr["name"]);
 				entity.Measurement = Convert.ToString(dr["measurement"]);
-				
+
 				list.Add(entity);
 			}
 			return list;
@@ -85,7 +88,7 @@ namespace DataMsSql
 			{
 				entity.Id = Convert.ToInt32(dr["id"]);
 				entity.Name = Convert.ToString(dr["name"]);
-				entity.Measurement = Convert.ToString(dr["measurement"]);				
+				entity.Measurement = Convert.ToString(dr["measurement"]);
 			}
 
 			throw new Exception();
@@ -95,5 +98,12 @@ namespace DataMsSql
 		{
 			throw new NotImplementedException();
 		}
+
+		public void Delete(IEnumerable<Ingredient> Ingredients)
+		{
+			throw new NotImplementedException();
+		}
+
+		
 	}
 }

@@ -12,8 +12,11 @@ namespace Services.Contracts
 		List<Ingredient> GetAll();
 		Ingredient GetById(int id);
 		int Add(Ingredient ingredient);
-		Ingredient Update(Ingredient ingredient);
-		
+		Ingredient Update(Ingredient ingredient);	
+
+		void Delete(IEnumerable<Ingredient> Ingredients);
+
+		void Delete(int id);
 	}
 }
 

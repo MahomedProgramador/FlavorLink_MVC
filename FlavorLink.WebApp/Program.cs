@@ -1,5 +1,6 @@
 using DataMsSql;
 using IOC;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using Services.Contracts;
 
@@ -10,7 +11,19 @@ builder.Services.AddRazorPages();
 
 ConfigureServices.ConfigureWebApp(builder.Services);
 
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "Belgas";
+    options.IdleTimeout = TimeSpan.FromHours(1);
+    options.Cookie.IsEssential = true;
+    
+});
+
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
+
+
+app.UseSession(); 
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -24,6 +37,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+
 
 app.UseAuthorization();
 

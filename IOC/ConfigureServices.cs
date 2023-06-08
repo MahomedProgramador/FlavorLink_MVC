@@ -1,5 +1,4 @@
 ﻿using DataMsSql;
-using InMemory;
 using Microsoft.Extensions.DependencyInjection;
 using Services;
 using Services.Contracts;
@@ -24,8 +23,17 @@ namespace IOC
 		{
 			serviceCollection.AddScoped<IRecipeRepository, RecipeRepository>();
 			serviceCollection.AddScoped<IRecipeService, RecipeService>();
+
 			serviceCollection.AddScoped<IIngredientService, IngredientService>();
 			serviceCollection.AddScoped<IIngredientRepository, IngredientRepository>();
-		}
+
+			serviceCollection.AddScoped<IRecipeIngredientRepository, RecipeIngredientRepository>();
+			serviceCollection.AddScoped<IRecipeIngredientService, RecipeIngredientService>();
+
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
+            serviceCollection.AddScoped<IUserService, UserService>();            
+        }
+
+		
 	}
 }

@@ -8,21 +8,23 @@ namespace FlavorLink.WebApp.Pages.Recipes
     public class DetailsModel : PageModel
     {
 		private readonly IRecipeService _recipeService;
-		private readonly IIngredientService _ingredientService;
+		private readonly IRecipeIngredientService _recipeIngredientService;
 
 		public Recipe Recipe { get; set; }
-		public Ingredient Ingredient { get; set; }
 
-		public DetailsModel(IRecipeService recipeService, IIngredientService ingredientService)
+		public IEnumerable<Ingredient> Ingredients { get; set; }
+
+		public DetailsModel(IRecipeService recipeService, IRecipeIngredientService recipeIngredientService)
 		{
 			_recipeService = recipeService;
-			_ingredientService = ingredientService;
+			_recipeIngredientService = recipeIngredientService;
 		}
 		public IActionResult OnGet(int id)
         {
 
-			//Ingredient = _ingredientService.GetById(id);
+			Ingredients = _recipeIngredientService.GetById(id);
 			Recipe = _recipeService.GetById(id);
+
 			if (Recipe == null || Recipe.Id == 0)
 			{
 				return RedirectToPage("/NotFound");

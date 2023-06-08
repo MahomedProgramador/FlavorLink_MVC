@@ -8,14 +8,19 @@ using System.Threading.Tasks;
 namespace Services.Contracts
 {
 	public interface IIngredientRepository
-	{
-
-		
+	{		
 		List<Ingredient> GetAll();
 		Ingredient GetById(int id);
+
 		int Add(Ingredient ingredient);
+
+		
 		void Update(Ingredient ingredient);
 		void Delete(int id);
-		
+
+		void Delete(IEnumerable<Ingredient> Ingredients);
+
+
+
 	}
 }

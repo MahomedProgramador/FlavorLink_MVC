@@ -1,7 +1,9 @@
 ﻿@page
+@using Domain.Models;
 @model FlavorLink.WebApp.Pages.IndexModel
 @{
 	ViewData["Title"] = "Recipes";
+	
 }
 
 <h1>Recipes</h1>
@@ -13,6 +15,7 @@
 		</div>
 	</div>
 </form>
+
 <div class="card-group">
 	@foreach (var recipe in Model.Recipes)
 	{

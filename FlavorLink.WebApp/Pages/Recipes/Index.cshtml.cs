@@ -2,6 +2,7 @@
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.Contracts;
+using System.Text.Json;
 
 namespace FlavorLink.WebApp.Pages.Recipes
 {
@@ -17,8 +18,18 @@ namespace FlavorLink.WebApp.Pages.Recipes
         
         public void OnGet()
         {
-            Recipes = _recipeService.GetAll();	
+            Recipes = _recipeService.GetAll();
+            GetSessionUser();
 
 		}
+        private void GetSessionUser()
+        {
+            string user = HttpContext.Session.GetString("user");
+            if (user is not null)
+            {
+                User u = JsonSerializer.Deserialize<User>(user);
+                ViewData["user"] = u;
+            }
+        }
     }
 }

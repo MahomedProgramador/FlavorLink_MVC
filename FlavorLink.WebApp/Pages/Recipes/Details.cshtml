@@ -1,4 +1,4 @@
-﻿@page "/recipes/{id}"
+﻿@page "recipes/{id}"
 @model FlavorLink.WebApp.Pages.Recipes.DetailsModel
 @{
 	ViewData["Title"] = "Details";
@@ -24,15 +24,15 @@
 			<img class="card-img-top" src="@photoPath" asp-append-version="true" />
 
 			<h3>Ingredients</h3>
-			<p>The ingredients</p>
-
-			<h3>Measurements</h3>
-			<p>The measures</p>
+			@foreach(var ingredient in Model.Ingredients)
+			{
+				<h5> @ingredient.Name</h5>
+				<p>@ingredient.Measurement</p>
+			}			
 
 			<p3>Preparation Method: @Model.Recipe.PrepMethod</p3>
 						
-			<h6>Recipe Rating: @Model.Recipe.Rating</h6>
-			
+			<h6>Recipe Rating: @Model.Recipe.Rating</h6>		
 			
 
 		</div>

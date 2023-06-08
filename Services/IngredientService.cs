@@ -2,6 +2,7 @@
 using Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,21 @@ namespace Services
 		{
 			_ingredientRepository = ingredientRepository;
 		}
+
+
 		public int Add(Ingredient ingredient)
 		{
 			return _ingredientRepository.Add(ingredient);
+		}
+
+		public void Delete(IEnumerable<Ingredient> Ingredients)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Delete(int id)
+		{
+			_ingredientRepository.Delete(id);
 		}
 
 		public List<Ingredient> GetAll()
@@ -35,5 +48,7 @@ namespace Services
 		{
 			throw new NotImplementedException();
 		}
+
+		
 	}
 }

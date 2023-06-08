@@ -10,7 +10,6 @@ namespace Services.Contracts
 		Recipe Update(Recipe recipe);
 		void Delete(int id);
 		void Delete(Recipe recipe);
-
 		IEnumerable<Recipe> Search(string searchTerm);
 	}
 }

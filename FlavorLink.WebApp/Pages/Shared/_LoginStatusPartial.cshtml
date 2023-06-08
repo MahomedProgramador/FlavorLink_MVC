@@ -1,0 +1,24 @@
+﻿@using Domain.Models;
+@using System.Text.Json;
+@inject IHttpContextAccessor HttpContextAccessor
+
+ @{
+    var userJson = HttpContextAccessor.HttpContext.Session.GetString("user");
+    var user = string.IsNullOrEmpty(userJson) ? null : JsonSerializer.Deserialize<User>(userJson);
+}
+
+@if (user is not null)
+{
+    <span class="text-light">Welcome, @user.Username</span>
+    <form method="post" asp-page="/Users/Logout" class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
+    </form>
+}
+else
+{
+    <form method="get" asp-page="/Users/Login" class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-light my-2 my-sm-0">Login</button>
+    </form>
+}
+
+

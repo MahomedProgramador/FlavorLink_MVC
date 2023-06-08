@@ -1,0 +1,18 @@
+﻿@page
+@model FlavorLink.WebApp.Pages.Users.RegisterModel
+@{
+}
+
+<h1>Register User</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label" asp-for="Username">Username</label>
+        <input type="text" class="form-control" asp-for="Username">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Password">Password</label>
+        <input type="password" class="form-control" asp-for="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>

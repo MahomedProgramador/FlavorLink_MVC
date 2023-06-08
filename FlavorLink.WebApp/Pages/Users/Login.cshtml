@@ -1,0 +1,24 @@
+﻿@page "/Users/Login"
+@model FlavorLink.WebApp.Pages.Users.LoginModel
+@{
+  
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label for="" class="form-label">Username</label>
+        <input type="text" class="form-control" asp-for="User.Username">
+        <span class="text-danger" asp-validation-for="User.Username"></span>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Password</label>
+        <input type="password" class="form-control" asp-for="User.Password">
+        <span class="text-danger" asp-validation-for="User.Password"></span>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" />
+        <label class="form-check-label">Remeber me</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+    
