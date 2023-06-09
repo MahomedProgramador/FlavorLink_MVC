@@ -34,7 +34,7 @@ namespace DataMsSql
                 user.Id = Convert.ToInt32(dr["id"]);
                 user.Username = Convert.ToString(dr["user_name"]);
                 user.Password = Convert.ToString(dr["password"]);
-                user.isAdmin = Convert.ToBoolean(dr["isAdmin"]);
+                user.isAdmin = Convert.ToBoolean(dr["is_admin"]);
 
                 return user;
             }
@@ -79,9 +79,7 @@ namespace DataMsSql
             conn.Open();
 
             using SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = query;
-
-           
+            cmd.CommandText = query;           
 
             int count = Convert.ToInt32(cmd.ExecuteScalar());
 

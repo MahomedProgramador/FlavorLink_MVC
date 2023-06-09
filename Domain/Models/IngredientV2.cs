@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-	public class Ingredient
+	public class IngredientV2
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string Measurement { get; set; }
-		public bool Selected { get; set; }
-
-		public IEnumerable<int> SelectedIngredients { get; set; }
+		public Measurement Measurement { get; set; }		
+		
 	}
 }
