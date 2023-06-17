@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace DataMsSql
 {
 	public class RecipeIngredientRepository : IRecipeIngredientRepository
-	{
+    {
 
 		private string[] _tableNames = { "recipes_ingredients", "ingredients", "Recipes" };
 
@@ -50,11 +50,11 @@ namespace DataMsSql
 
 			while (dr.Read())
 			{
-				Ingredient entity = new Ingredient();				
-				entity.Name = Convert.ToString(dr["name"]);
-				entity.Measurement = Convert.ToString(dr["measurement"]); 		
+				Ingredient ingredient = new Ingredient();				
+				ingredient.Name = Convert.ToString(dr["name"]);
+				ingredient.Measurement = Convert.ToString(dr["measurement"]); 		
 
-				ingredientList.Add(entity);
+				ingredientList.Add(ingredient);
 			}
 			return ingredientList;
 		}

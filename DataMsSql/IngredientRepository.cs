@@ -8,9 +8,19 @@ namespace DataMsSql
 {
 	public class IngredientRepository : IIngredientRepository
 	{
+		
+
 
 		private string _tableName = "Ingredients";
 		private readonly string _cs = "Server=localhost\\SQLEXPRESS;Database=FlavorLink;Trusted_Connection=True;TrustServerCertificate=True;";
+
+
+		public IEnumerable<Ingredient> UpdateByRecipeId(int id)
+		{
+
+
+			throw new NotImplementedException();
+		}
 
 		public int Add(Ingredient ingredient)
 		{
@@ -41,7 +51,7 @@ namespace DataMsSql
 
 			cmd.ExecuteNonQuery();
 		}
-	
+
 
 		public List<Ingredient> GetAll()
 		{
@@ -104,6 +114,6 @@ namespace DataMsSql
 			throw new NotImplementedException();
 		}
 
-		
+
 	}
 }

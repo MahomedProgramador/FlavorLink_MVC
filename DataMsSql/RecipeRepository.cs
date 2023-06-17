@@ -1,12 +1,13 @@
 ﻿using Domain.Models;
 using Services.Contracts;
 using System.Data.SqlClient;
-using System.Xml;
+
 
 namespace DataMsSql
 {
 	public class RecipeRepository : IRecipeRepository
 	{
+
 		private string _tableName = "Recipes";
 		private readonly string _cs = "Server=localhost\\SQLEXPRESS;Database=FlavorLink;Trusted_Connection=True;TrustServerCertificate=True;";
 
@@ -17,8 +18,9 @@ namespace DataMsSql
 			_ingredientRepository = ingredientRepository;
         }
 
-        public Recipe Add(Recipe entity)
-		{			
+
+		public Recipe Add(Recipe entity)
+		{
 			string query = $"INSERT INTO {_tableName} (name, prep_method, difficulty, rating, image_path) " +
 						   $"VALUES ('{entity.Name}', '{entity.PrepMethod}', {entity.Difficulty}, {entity.Rating}, '{entity.ImagePath}') " +
 						   $"SELECT SCOPE_IDENTITY() as 'SCOPE_IDENTITY'";
@@ -45,7 +47,7 @@ namespace DataMsSql
 		{
 			string query = $"INSERT INTO recipes_ingredients (recipe_id, ingredient_id) " +
 					   $"VALUES ({recipeId}, {ingredientId}); ";
-					   
+
 			using SqlConnection conn = new SqlConnection(_cs);
 
 			conn.Open();
@@ -53,7 +55,7 @@ namespace DataMsSql
 			using SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = query;
 
-			cmd.ExecuteNonQuery();			
+			cmd.ExecuteNonQuery();
 		}
 
 		private void RemoveRelationship(int recipeId)
@@ -84,7 +86,7 @@ namespace DataMsSql
 			foreach (int ingredientId in ingredientList)
 			{
 				_ingredientRepository.Delete(ingredientId);
-			}			
+			}
 
 			conn.Close();
 		}
@@ -107,7 +109,7 @@ namespace DataMsSql
 		{
 			Delete(entity.Id);
 		}
-		public List<Recipe> GetAll()
+		public IEnumerable<Recipe> GetAll()
 		{
 			var list = new List<Recipe>();
 
@@ -126,7 +128,7 @@ namespace DataMsSql
 				Recipe entity = new Recipe();
 				entity.Id = Convert.ToInt32(dr["id"]);
 				entity.Name = Convert.ToString(dr["name"]);
-				entity.Ingredients= new List<Ingredient>();
+				entity.Ingredients = new List<Ingredient>();
 
 				//A tabela já não tem o campo do ingredient, está a ir para outro lado
 				//Ingredient i = new Ingredient();
@@ -144,7 +146,7 @@ namespace DataMsSql
 					entity.Rating = null; // Nullable int
 
 				entity.ImagePath = Convert.ToString(dr["image_path"]);
-				
+
 				list.Add(entity);
 			}
 			return list;
@@ -161,9 +163,9 @@ namespace DataMsSql
 			cmd.CommandText = query;
 
 			SqlDataReader dr = cmd.ExecuteReader();
-			
+
 			if (dr.Read())
-			{				
+			{
 				Recipe entity = new Recipe();
 				entity.Id = Convert.ToInt32(dr["id"]);
 				entity.Name = Convert.ToString(dr["name"]);
@@ -179,14 +181,47 @@ namespace DataMsSql
 				else
 					entity.Rating = null; // Nullable int
 
-				entity.ImagePath = Convert.ToString(dr["image_path"]);				
+				entity.ImagePath = Convert.ToString(dr["image_path"]);
 				return entity;
 			}
 			throw new KeyNotFoundException($"Recipe Id {id} Not Found"); //nao queria mandar a pagina abaixo. tenho de fazer o trycatchg
 		}
 		public Recipe Update(Recipe entity)
 		{
-			throw new NotImplementedException();
+			Recipe recipe = GetById(entity.Id);
+
+
+
+			recipe.Name = (recipe.Name == null) ? recipe.Name : entity.Name;
+
+			recipe.Ingredients = new List<Ingredient>(entity.Ingredients);
+
+
+			//update ingredients
+
+			recipe.PrepMethod = (recipe.PrepMethod == null) ? recipe.PrepMethod : entity.PrepMethod;
+			recipe.Difficulty = (recipe.Difficulty == null) ? recipe.Difficulty: entity.Difficulty;						
+			recipe.Rating = (recipe.Rating == null) ? recipe.Rating : entity.Rating;
+			recipe.ImagePath = (recipe.ImagePath == null) ? recipe.ImagePath : entity.ImagePath;
+
+			string query = $"UPDATE {_tableName} SET name = '{entity.Name}', difficulty = {entity.Difficulty} WHERE id = {entity.Id}";
+
+			using SqlConnection conn = new SqlConnection(_cs);
+			conn.Open();
+
+
+			using (SqlCommand cmd = conn.CreateCommand())
+			{
+				cmd.CommandText = query;
+				int rowsAffected = cmd.ExecuteNonQuery();
+
+				if (rowsAffected > 0)
+				{
+					return entity; 
+				}
+
+				throw new KeyNotFoundException();
+			}
 		}
 
 		public IEnumerable<Recipe> Search(string searchTerm)
@@ -216,7 +251,7 @@ namespace DataMsSql
 				}
 				else
 				{
-					entity.PrepMethod = Convert.ToString(dr["prep_method"]);					
+					entity.PrepMethod = Convert.ToString(dr["prep_method"]);
 				}
 
 				if (dr["difficulty"] is DBNull)
@@ -236,12 +271,12 @@ namespace DataMsSql
 				{
 					entity.Rating = Convert.ToInt32(dr["rating"]);
 				}
-				
+
 				entity.ImagePath = Convert.ToString(dr["image_path"]);
 
 				list.Add(entity);
 			}
-			return list;			
+			return list;
 		}
 	}
 }

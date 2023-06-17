@@ -4,7 +4,7 @@ namespace Services.Contracts
 {
 	public interface IRecipeService 
 	{
-		List<Recipe> GetAll();
+		IEnumerable<Recipe> GetAll();
 		Recipe GetById(int id);
 		Recipe Add(Recipe recipe);
 		Recipe Update(Recipe recipe);

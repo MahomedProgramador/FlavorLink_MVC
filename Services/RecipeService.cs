@@ -27,7 +27,7 @@ namespace Services
 			_recipeRepository.Delete(recipe);
 		}
 
-		public List<Recipe> GetAll()
+		public IEnumerable<Recipe> GetAll()
 		{
 			return _recipeRepository.GetAll();
 		}

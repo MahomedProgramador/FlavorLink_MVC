@@ -1,11 +1,6 @@
 ﻿using Domain.Models;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Services
 {
@@ -24,7 +19,7 @@ namespace Services
 			return _ingredientRepository.Add(ingredient);
 		}
 
-		public void Delete(IEnumerable<Ingredient> Ingredients)
+		public void Delete(IEnumerable<Ingredient> ingredients)
 		{
 			throw new NotImplementedException();
 		}
@@ -45,7 +40,7 @@ namespace Services
 		}
 
 		public Ingredient Update(Ingredient ingredient)
-		{
+		{	
 			throw new NotImplementedException();
 		}
 

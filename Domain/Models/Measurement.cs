@@ -9,7 +9,7 @@ namespace Domain.Models
 	public class Measurement
 	{
 		public int Id { get; set; }
-		public double Quantity { get; set; }
 		public string Unit { get; set; }
+		
 	}
 }

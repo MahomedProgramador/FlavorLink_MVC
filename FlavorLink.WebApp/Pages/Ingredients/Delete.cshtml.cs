@@ -1,7 +1,7 @@
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Services;
+
 using Services.Contracts;
 
 namespace FlavorLink.WebApp.Pages.Ingredients
