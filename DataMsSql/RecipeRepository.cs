@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Services.Contracts;
+using Services.Utils;
 using System.Data.SqlClient;
 
 
@@ -19,9 +20,9 @@ namespace DataMsSql
         }
 
 
-		public Recipe Add(Recipe entity)
+		public Recipe AddRecipe(Recipe entity)
 		{
-			string query = $"INSERT INTO {_tableName} (name, prep_method, difficulty, rating, image_path) " +
+			string query = $"INSERT INTO {TableName.Recipes} (name, prep_method, difficulty, rating, image_path) " +
 						   $"VALUES ('{entity.Name}', '{entity.PrepMethod}', {entity.Difficulty}, {entity.Rating}, '{entity.ImagePath}') " +
 						   $"SELECT SCOPE_IDENTITY() as 'SCOPE_IDENTITY'";
 
@@ -37,7 +38,7 @@ namespace DataMsSql
 
 			foreach (Ingredient ingredient in entity.Ingredients)
 			{
-				ingredient.Id = _ingredientRepository.Add(ingredient);
+				ingredient.Id = _ingredientRepository.AddIngredient(ingredient);
 
 				CreateRelationship(entity.Id, ingredient.Id);
 			}
@@ -99,7 +100,7 @@ namespace DataMsSql
 
 			conn.Open();
 
-			string query = $"DELETE FROM {_tableName} WHERE id = {id}";
+			string query = $"DELETE FROM {TableName.Recipes} WHERE id = {id}";
 			using SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = query;
 
@@ -117,7 +118,7 @@ namespace DataMsSql
 
 			conn.Open();
 
-			string query = $"SELECT * FROM {_tableName}";
+			string query = $"SELECT * FROM {TableName.Recipes}";
 			using SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = query;
 
@@ -153,7 +154,7 @@ namespace DataMsSql
 		}
 		public Recipe GetById(int id)
 		{
-			string query = $"SELECT * from {_tableName} WHERE id = {id}";
+			string query = $"SELECT * from {TableName.Recipes} WHERE id = {id}";
 
 			using SqlConnection conn = new SqlConnection(_cs);
 
@@ -204,7 +205,7 @@ namespace DataMsSql
 			recipe.Rating = (recipe.Rating == null) ? recipe.Rating : entity.Rating;
 			recipe.ImagePath = (recipe.ImagePath == null) ? recipe.ImagePath : entity.ImagePath;
 
-			string query = $"UPDATE {_tableName} SET name = '{entity.Name}', difficulty = {entity.Difficulty} WHERE id = {entity.Id}";
+			string query = $"UPDATE {TableName.Recipes} SET name = '{entity.Name}', difficulty = {entity.Difficulty} WHERE id = {entity.Id}";
 
 			using SqlConnection conn = new SqlConnection(_cs);
 			conn.Open();
@@ -232,7 +233,7 @@ namespace DataMsSql
 
 			conn.Open();
 
-			string query = $"SELECT * FROM {_tableName} WHERE UPPER(Name) LIKE '%{searchTerm}%' OR name LIKE '%{searchTerm}%'";
+			string query = $"SELECT * FROM {TableName.Recipes} WHERE UPPER(Name) LIKE '%{searchTerm}%' OR name LIKE '%{searchTerm}%'";
 			using SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = query;
 

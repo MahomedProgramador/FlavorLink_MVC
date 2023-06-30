@@ -31,8 +31,12 @@ namespace IOC
 			serviceCollection.AddScoped<IRecipeIngredientService, RecipeIngredientService>();
 
             serviceCollection.AddScoped<IUserRepository, UserRepository>();
-            serviceCollection.AddScoped<IUserService, UserService>();            
-        }
+            serviceCollection.AddScoped<IUserService, UserService>();
+
+
+			serviceCollection.AddScoped<IMeasurementRepository, MeasurementRepository>();
+			serviceCollection.AddScoped<IMeasurementService, MeasurementService>();
+		}
 
 		
 	}

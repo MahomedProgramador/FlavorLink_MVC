@@ -38,12 +38,7 @@ namespace FlavorLink.WebApp.Pages.Recipes
 				.Select(ingredientId => _ingredientService.GetById(ingredientId))
 				.Where(ingredient => ingredient != null)
 				.ToList();
-
-			foreach (var ingredient in Ingredients)
-			{
-				ingredient.Selected = true;
-			}
-
+	
 			return Page();
 		}
 

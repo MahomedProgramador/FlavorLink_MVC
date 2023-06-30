@@ -12,9 +12,9 @@ namespace Services
 			_recipeRepository = recipeRepository;
 		}
 
-        public Recipe Add(Recipe recipe)
+        public Recipe AddRecipe(Recipe recipe)
 		{
-			return _recipeRepository.Add(recipe);
+			return _recipeRepository.AddRecipe(recipe);
 		}
 
 		public void Delete(int id)

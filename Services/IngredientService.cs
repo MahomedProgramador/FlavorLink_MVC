@@ -14,9 +14,9 @@ namespace Services
 		}
 
 
-		public int Add(Ingredient ingredient)
+		public void AddIngredient(Ingredient ingredient)
 		{
-			return _ingredientRepository.Add(ingredient);
+			 _ingredientRepository.AddIngredient(ingredient);
 		}
 
 		public void Delete(IEnumerable<Ingredient> ingredients)

@@ -5,20 +5,6 @@
 
 <h1>Delete Ingredients</h1>
 
-@foreach (var ingredient in Model.Ingredients.Where(i =>i.Selected))
-{
-		<label asp-for="Ingredient.Name"  class="col-sm-2 col" placeholder="ingredient.Name">Name</label>
-
-		<div class="col-sm-8">
-			<input asp-for="@ingredient.Name" class="form-control" placeholder="Ingredients" />
-		</div>
-
-		<div class="form-group row">
-			<label asp-for="Ingredient.Measurement" class="col-sm-2 col-form-label" placeholder="Measurement">@ingredient.Name Measure</label>
-			<div class="col-sm-10">
-				<input asp-for="@ingredient.Measurement" class="form-control" placeholder="Measure" />
-			</div>
-		</div>	
 }
 
 <div class="alert alert-danger">

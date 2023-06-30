@@ -1,0 +1,85 @@
+﻿@page
+@model FlavorLink.WebApp.Pages.Ingredients.CreateModel
+@{
+}
+
+ <form method="post">
+<div class="form-group row">
+	<label class="col-sm-2 col-form-label">Ingredients</label>
+	<div class="col-sm-10">
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="ingredientDropdownButton">
+				Select Ingredient
+			</button>
+			<ul class="dropdown-menu">
+				@foreach (var ingredient in Model.Ingredients)
+				{
+					<li><a class="dropdown-item" onclick="updateIngredientDropdownButton('@ingredient.Name',@ingredient.Id)">@ingredient.Name</a></li>
+				}
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<div class="form-group row">
+	<label class="col-sm-2 col-form-label">Quantity</label>
+	<div class="col-sm-10">
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="quantityDropdownButton">
+				Select Quantity
+			</button>
+			<ul class="dropdown-menu">
+				@foreach (var quantity in Model.IngredientsQuantity)
+				{
+					<li><a class="dropdown-item" onclick="updateQuantityDropdownButton('@quantity')">@quantity</a></li>
+				}
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="form-group row">
+	<label class="col-sm-2 col-form-label">Measurement</label>
+	<div class="col-sm-10">
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="measurementDropdownButton">
+				Select Measurement
+			</button>
+			<ul class="dropdown-menu">
+				@foreach (var measurement in Model.Measurements)
+				{
+					<li><a class="dropdown-item" onclick="updateMeasurementDropdownButton('@measurement.Unit')">@measurement.Unit</a></li>
+				}
+			</ul>
+		</div>
+	</div>
+</div>
+
+<button type="submit" class="btn btn-primary m-1">Add Ingredient</button>
+<a asp-page="/Recipes/Create" class="btn btn-primary">Back</a>
+
+</form>
+
+<script>
+function updateIngredientDropdownButton(value){
+		document.getElementById("ingredientDropdownButton").textContent = value;
+		document.getElementById("IngredientId").value = id;
+	}
+	function updateMeasurementDropdownButton(value) {
+		document.getElementById("measurementDropdownButton").textContent = value;
+		document.getElementById("MeasurementId").value = id;
+	}
+	function updateQuantityDropdownButton(value) {
+		document.getElementById("quantityDropdownButton").textContent = value;
+		document.getElementById("Quantity").value = value;
+	}
+</script>
+

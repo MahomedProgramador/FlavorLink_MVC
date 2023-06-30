@@ -6,7 +6,7 @@ namespace Services.Contracts
 	{
 		IEnumerable<Recipe> GetAll();
 		Recipe GetById(int id);
-		Recipe Add(Recipe recipe);
+		Recipe AddRecipe(Recipe recipe);
 		Recipe Update(Recipe recipe);
 		void Delete(int id);
 		void Delete(Recipe recipe);

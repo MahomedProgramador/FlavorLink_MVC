@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Services.Contracts;
+using Services.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -16,7 +17,7 @@ namespace DataMsSql
         public User Login(string username, string password)
         {
             string query = $"SELECT * " +
-                $"FROM {_tableName} " +
+                $"FROM {TableName.Users} " +
                 $"WHERE user_name = '{username}' AND password = '{password}';";
 
             using SqlConnection conn = new SqlConnection(_cs);
@@ -44,7 +45,7 @@ namespace DataMsSql
         public User Register(string username, string password)
         {
             string query = $"INSERT " +
-                           $"INTO {_tableName} " +
+                           $"INTO {TableName.Users} " +
                            $"VALUES('{username}', '{password}', 0);";
 
             using SqlConnection conn = new SqlConnection(_cs);
@@ -72,7 +73,7 @@ namespace DataMsSql
         public bool UserExists(string username)
         {
             
-            string query = $"SELECT COUNT(*) FROM {_tableName} WHERE user_name = '{username}';";            
+            string query = $"SELECT COUNT(*) FROM {TableName.Users} WHERE user_name = '{username}';";            
 
             using SqlConnection conn = new SqlConnection(_cs);
 

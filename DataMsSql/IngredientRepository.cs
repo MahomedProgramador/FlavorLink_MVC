@@ -1,31 +1,26 @@
 ﻿using Domain.Models;
 using Services.Contracts;
+using Services.Utils;
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.Diagnostics.Metrics;
 
 
 namespace DataMsSql
 {
 	public class IngredientRepository : IIngredientRepository
-	{
-		
-
-
-		private string _tableName = "Ingredients";
+	{			
 		private readonly string _cs = "Server=localhost\\SQLEXPRESS;Database=FlavorLink;Trusted_Connection=True;TrustServerCertificate=True;";
-
 
 		public IEnumerable<Ingredient> UpdateByRecipeId(int id)
 		{
-
-
 			throw new NotImplementedException();
 		}
 
-		public int Add(Ingredient ingredient)
+		public void AddIngredient(Ingredient ingredient)
 		{
-			string query = $"INSERT INTO {_tableName} (name, measurement) " +
-						   $"VALUES ('{ingredient.Name}', '{ingredient.Measurement}') " +
+			string query = $"INSERT INTO {TableName.Ingredients} (name) " +
+						   $"VALUES ('{ingredient.Name}') " +
 						   $"SELECT SCOPE_IDENTITY() as 'SCOPE_IDENTITY'";
 
 			using SqlConnection conn = new SqlConnection(_cs);
@@ -36,7 +31,7 @@ namespace DataMsSql
 			cmd.CommandText = query;
 
 
-			return ingredient.Id;
+			
 		}
 
 		public void Delete(int id)
@@ -45,7 +40,7 @@ namespace DataMsSql
 
 			conn.Open();
 
-			string query = $"DELETE FROM {_tableName} WHERE id = {id}";
+			string query = $"DELETE FROM {TableName.Ingredients} WHERE id = {id}";
 			using SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = query;
 
@@ -61,7 +56,7 @@ namespace DataMsSql
 
 			conn.Open();
 
-			string query = $"SELECT * FROM {_tableName}";
+			string query = $"SELECT * FROM {TableName.Ingredients}";
 			using SqlCommand cmd = conn.CreateCommand();
 			cmd.CommandText = query;
 
@@ -72,7 +67,7 @@ namespace DataMsSql
 				Ingredient entity = new Ingredient();
 				entity.Id = Convert.ToInt32(dr["id"]);
 				entity.Name = Convert.ToString(dr["name"]);
-				entity.Measurement = Convert.ToString(dr["measurement"]);
+				entity.Measurement = new Measurement();				
 
 				list.Add(entity);
 			}
@@ -81,9 +76,18 @@ namespace DataMsSql
 
 		public Ingredient GetById(int id)
 		{
+
+			//fazer aqui o inner join e mostrar o measurement
 			Ingredient entity = new Ingredient();
 
-			string query = $"SELECT * from {_tableName} WHERE id = {id}";
+			//string query = $"SELECT * from {_tables[0]} WHERE id = {id}";
+
+			string query =  $"SELECT i.name, quantity, m.unit FROM {TableName.Recipes_ingredients} as ri " +
+							$"INNER JOIN {TableName.Ingredients} as i " +
+							"ON ri.ingredient_id = i.id " +
+							$"INNER JOIN {TableName.Measurement} as m " +
+							"ON ri.measurement_id = m.id " +
+							$"WHERE i.id = {id};";
 
 			using SqlConnection conn = new SqlConnection(_cs);
 
@@ -98,7 +102,8 @@ namespace DataMsSql
 			{
 				entity.Id = Convert.ToInt32(dr["id"]);
 				entity.Name = Convert.ToString(dr["name"]);
-				entity.Measurement = Convert.ToString(dr["measurement"]);
+			
+				entity.Measurement = (Measurement)(dr["unit"]);
 			}
 
 			throw new Exception();
@@ -108,12 +113,5 @@ namespace DataMsSql
 		{
 			throw new NotImplementedException();
 		}
-
-		public void Delete(IEnumerable<Ingredient> Ingredients)
-		{
-			throw new NotImplementedException();
-		}
-
-
 	}
 }

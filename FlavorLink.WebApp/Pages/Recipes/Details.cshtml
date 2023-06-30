@@ -26,9 +26,12 @@
 			<h3>Ingredients</h3>
 			@foreach(var ingredient in Model.Ingredients)
 			{
-				<h5> @ingredient.Name</h5>
-				<p>@ingredient.Measurement</p>
-			}			
+				<h5> Name of Ingredient: @ingredient.Name</h5>
+				<p> Quantity: @ingredient.Quantity </p>
+				<p> Measure: @ingredient.Measurement.Unit </p>
+				
+			}		
+				
 
 			<p3>Preparation Method: @Model.Recipe.PrepMethod</p3>
 						

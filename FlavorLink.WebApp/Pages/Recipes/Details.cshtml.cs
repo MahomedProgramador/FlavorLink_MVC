@@ -9,8 +9,11 @@ namespace FlavorLink.WebApp.Pages.Recipes
     {
 		private readonly IRecipeService _recipeService;
 		private readonly IRecipeIngredientService _recipeIngredientService;
+		
+		
 
 		public Recipe Recipe { get; set; }
+		public IEnumerable<Measurement> Measurement { get; set; }
 
 		public IEnumerable<Ingredient> Ingredients { get; set; }
 
@@ -18,11 +21,12 @@ namespace FlavorLink.WebApp.Pages.Recipes
 		{
 			_recipeService = recipeService;
 			_recipeIngredientService = recipeIngredientService;
+			
 		}
 		public IActionResult OnGet(int id)
         {
-
-			Ingredients = _recipeIngredientService.GetById(id);
+			
+			Ingredients = _recipeIngredientService.GetById(id); //Devia tar no recipeService e ter lá um getByIdWithIngredients.
 			Recipe = _recipeService.GetById(id);
 
 			if (Recipe == null || Recipe.Id == 0)
@@ -33,3 +37,4 @@ namespace FlavorLink.WebApp.Pages.Recipes
 		}
     }
 }
+

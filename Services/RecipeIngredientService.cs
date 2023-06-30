@@ -18,7 +18,8 @@ namespace Services
 		}
         public IEnumerable<Ingredient> GetById(int id)
 		{
-			return _recipeIngredientRepository.GetById(id);
+			var test = _recipeIngredientRepository.GetById(id);
+			return test;
 		}
 
 		public IEnumerable<Ingredient> GetByRecipe(Recipe recipe)
@@ -26,6 +27,9 @@ namespace Services
 			return _recipeIngredientRepository.GetByRecipe(recipe);
 		}
 
-
+		public IEnumerable<double> GetAllQuantities()
+		{
+			return _recipeIngredientRepository.GetAllQuantities();
+		}
 	}
 }

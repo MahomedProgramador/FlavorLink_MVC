@@ -29,8 +29,7 @@ namespace FlavorLink.WebApp.Pages.Recipes
 		}
 
         public IActionResult OnGet(int id)
-        {             
-   
+        {          
             Ingredients = _recipeIngredientService.GetById(id);
             Recipe = _recipeService.GetById(id);
 
@@ -44,7 +43,6 @@ namespace FlavorLink.WebApp.Pages.Recipes
 
 		public IActionResult OnPost(Recipe recipe)
 		{			
-
             Recipe = _recipeService.Update(recipe);
 
             return RedirectToPage("/Recipes/index");

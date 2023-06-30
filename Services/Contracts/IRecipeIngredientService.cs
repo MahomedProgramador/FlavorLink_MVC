@@ -10,8 +10,8 @@ namespace Services.Contracts
 	public interface IRecipeIngredientService
 	{
 		public IEnumerable<Ingredient> GetById(int id);
-
 		public IEnumerable<Ingredient> GetByRecipe(Recipe recipe);
+		public IEnumerable<double> GetAllQuantities();
 
 	}
 }
