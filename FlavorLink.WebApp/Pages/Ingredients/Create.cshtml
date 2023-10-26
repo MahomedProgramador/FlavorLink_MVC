@@ -1,85 +1,62 @@
-﻿@page
+﻿@page "{recipeId:int}"
 @model FlavorLink.WebApp.Pages.Ingredients.CreateModel
 @{
+
 }
-
- <form method="post">
-<div class="form-group row">
-	<label class="col-sm-2 col-form-label">Ingredients</label>
-	<div class="col-sm-10">
-		<div class="dropdown">
-			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="ingredientDropdownButton">
-				Select Ingredient
-			</button>
-			<ul class="dropdown-menu">
-				@foreach (var ingredient in Model.Ingredients)
-				{
-					<li><a class="dropdown-item" onclick="updateIngredientDropdownButton('@ingredient.Name',@ingredient.Id)">@ingredient.Name</a></li>
-				}
-			</ul>
-		</div>
-	</div>
+<div>
+	<p>ID da receita: @Model.Recipe.Id </p>
 </div>
 
-
-
-
-
-
-<div class="form-group row">
-	<label class="col-sm-2 col-form-label">Quantity</label>
-	<div class="col-sm-10">
-		<div class="dropdown">
-			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="quantityDropdownButton">
-				Select Quantity
-			</button>
-			<ul class="dropdown-menu">
-				@foreach (var quantity in Model.IngredientsQuantity)
-				{
-					<li><a class="dropdown-item" onclick="updateQuantityDropdownButton('@quantity')">@quantity</a></li>
-				}
-			</ul>
+<form method="post">
+		<hidden input name="Recipe.Id" type="text" value="@Model.Recipe.Id" readonly></hidden>	
+	<div class="form-group row" >
+		<label class="col-sm-2 col-form-label">Ingredients</label>
+		<div class="col-sm-10">
+			<div class="dropdown">
+				<select name="Ingredient.Id" asp-for="Ingredient.Id" class="btn btn-primary">
+					@foreach (var ingredient in Model.Ingredients)
+					{
+						<option value="@ingredient.Id">@ingredient.Name</option>
+					}
+				</select>	
+			</div>
 		</div>
 	</div>
-</div>
 
-
-
-
-<div class="form-group row">
-	<label class="col-sm-2 col-form-label">Measurement</label>
-	<div class="col-sm-10">
-		<div class="dropdown">
-			<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="measurementDropdownButton">
-				Select Measurement
-			</button>
-			<ul class="dropdown-menu">
-				@foreach (var measurement in Model.Measurements)
-				{
-					<li><a class="dropdown-item" onclick="updateMeasurementDropdownButton('@measurement.Unit')">@measurement.Unit</a></li>
-				}
-			</ul>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Quantity</label>
+		<div class="col-sm-10">
+			<div class="dropdown" name="Ingredient.Quantity">			
+				<input type="number" id="quantity" name="Ingredient.Quantity" min="0" step="0.01"><br>				
+			</div>
 		</div>
 	</div>
-</div>
 
-<button type="submit" class="btn btn-primary m-1">Add Ingredient</button>
-<a asp-page="/Recipes/Create" class="btn btn-primary">Back</a>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Measurement</label>
+		<div class="col-sm-10" name="Ingredient.Measurement">
+			<div class="dropdown">		
+
+				<select name="Ingredient.Measurement.Id" asp-for="Ingredient.Measurement.Id" class="btn btn-primary">
+					@foreach (var measurement in Model.Measurements)
+					{
+						<option value="@measurement.Id">@measurement.Unit</option>
+					}
+				</select>
+
+				<select class="dropdown-menu">
+					@foreach (var measurement in Model.Measurements)
+					{
+						<li><a class="dropdown-item" onclick="updateMeasurementDropdownButton('@measurement.Unit')">@measurement.Unit</a></li>
+					}
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary m-1">Add Ingredient</button>
+	<a asp-page="/Recipes/Create" class="btn btn-primary">Back</a>
 
 </form>
 
-<script>
-function updateIngredientDropdownButton(value){
-		document.getElementById("ingredientDropdownButton").textContent = value;
-		document.getElementById("IngredientId").value = id;
-	}
-	function updateMeasurementDropdownButton(value) {
-		document.getElementById("measurementDropdownButton").textContent = value;
-		document.getElementById("MeasurementId").value = id;
-	}
-	function updateQuantityDropdownButton(value) {
-		document.getElementById("quantityDropdownButton").textContent = value;
-		document.getElementById("Quantity").value = value;
-	}
-</script>
 

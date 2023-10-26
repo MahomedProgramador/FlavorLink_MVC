@@ -13,4 +13,13 @@ namespace Domain.Models
 		public double Quantity { get; set; }
 		public Measurement Measurement { get; set; }
 	}
+
+	public class IngredientLine
+	{
+		public int Id { get; set; }
+		public Ingredient ingredient { get; set; }
+		public double Quantity { get; set; }
+		public Measurement Measurement { get; set; }
+
+	}
 }

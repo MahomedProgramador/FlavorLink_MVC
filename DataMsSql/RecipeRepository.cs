@@ -9,7 +9,7 @@ namespace DataMsSql
 	public class RecipeRepository : IRecipeRepository
 	{
 
-		private string _tableName = "Recipes";
+		
 		private readonly string _cs = "Server=localhost\\SQLEXPRESS;Database=FlavorLink;Trusted_Connection=True;TrustServerCertificate=True;";
 
 		private readonly IIngredientRepository _ingredientRepository;
@@ -37,7 +37,8 @@ namespace DataMsSql
 			entity.Id = id;
 
 			foreach (Ingredient ingredient in entity.Ingredients)
-			{
+			{			
+				
 				ingredient.Id = _ingredientRepository.AddIngredient(ingredient);
 
 				CreateRelationship(entity.Id, ingredient.Id);
@@ -185,7 +186,7 @@ namespace DataMsSql
 				entity.ImagePath = Convert.ToString(dr["image_path"]);
 				return entity;
 			}
-			throw new KeyNotFoundException($"Recipe Id {id} Not Found"); //nao queria mandar a pagina abaixo. tenho de fazer o trycatchg
+			throw new KeyNotFoundException($"Recipe Id {id} Not Found"); 
 		}
 		public Recipe Update(Recipe entity)
 		{
@@ -224,7 +225,6 @@ namespace DataMsSql
 				throw new KeyNotFoundException();
 			}
 		}
-
 		public IEnumerable<Recipe> Search(string searchTerm)
 		{
 			var list = new List<Recipe>();

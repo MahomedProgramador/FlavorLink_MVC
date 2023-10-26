@@ -11,10 +11,10 @@ namespace Services.Contracts
 	{
 		List<Ingredient> GetAll();
 		Ingredient GetById(int id);
-		void AddIngredient(Ingredient ingredient);
-		Ingredient Update(Ingredient ingredient);	
-		
+		int AddIngredient(Ingredient ingredient);
+		Ingredient Update(Ingredient ingredient);			
 		void Delete(int id);
+		void AddIngredientInRecipe(int id, Ingredient ingredient);
 	}
 }
 

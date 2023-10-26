@@ -12,7 +12,7 @@ namespace DataMsSql
 {
     public class UserRepository : IUserRepository
     {
-        private string _tableName = "users";
+       
         private readonly string _cs = "Server=localhost\\SQLEXPRESS;Database=FlavorLink;Trusted_Connection=True;TrustServerCertificate=True;";
         public User Login(string username, string password)
         {

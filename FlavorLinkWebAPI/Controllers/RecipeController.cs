@@ -42,7 +42,7 @@ namespace FlavorLinkWebAPI.Controllers
 		[HttpPost("")]
 		public Recipe CreateRecipe(Recipe recipe)
 		{
-			return _recipeService.Add(recipe);
+			return _recipeService.AddRecipe(recipe);
 		}
 	}
 }

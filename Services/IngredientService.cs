@@ -13,10 +13,9 @@ namespace Services
 			_ingredientRepository = ingredientRepository;
 		}
 
-
-		public void AddIngredient(Ingredient ingredient)
+		public int AddIngredient(Ingredient ingredient)
 		{
-			 _ingredientRepository.AddIngredient(ingredient);
+			return _ingredientRepository.AddIngredient(ingredient);
 		}
 
 		public void Delete(IEnumerable<Ingredient> ingredients)
@@ -44,6 +43,9 @@ namespace Services
 			throw new NotImplementedException();
 		}
 
-		
+		public void AddIngredientInRecipe(int id, Ingredient ingredient)
+		{
+			_ingredientRepository.AddIngredientInRecipe(id, ingredient);
+		}
 	}
 }
